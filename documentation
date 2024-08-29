@@ -101,3 +101,9 @@ Second Read: You attempt to decode the same res.Body into your Todo struct using
 Issue: After the first read, res.Body is exhausted, so when you try to read it again for decoding, it returns an EOF (End of File) error because there's nothing left to read.
 
 ------------------------------------------------------------------------------------------------------------------------------------
+
+
+some git commands for handy use
+git remote add origin https://github.com/Rajneesh100/go_lang.git
+git branch -M main
+git push -u origin main
