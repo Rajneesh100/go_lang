@@ -1,0 +1,10 @@
+ Address.use    code            home | work | temp | old | billing - purpose of this address
+ Address.type   code            postal | physical | both
+ Address.text   string          Text representation of the address
+ Address.line       string          Street name, number, direction & P.O. Box etc.
+ Address.city       string          Name of city, town etc.
+ Address.district       string          District name (aka county)
+ Address.state      string          Sub-unit of country (abbreviations ok)
+ Address.postalCode     string          Postal code for area
+ Address.country        string          Country (e.g. may be ISO 3166 2 or 3 letter code)
+ Address.period     Period          Time period when address was/is in use

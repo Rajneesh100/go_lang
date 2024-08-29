@@ -1,0 +1,103 @@
+go version : get version
+go --version : all commands
+
+go mod init project_name
+
+rajneesh@laptop-451-raapid:~/Desktop/golang$ go env GOPATH
+/home/rajneesh/go
+
+for any function which is accessed outside of its package must start with capital latters
+
+
+
+var           name         type
+variable   give_a_name  specify_type
+
+their is no char data type in go 
+but it is basically ascii value of char 
+var ch rune ='a'
+here ch will have value 97
+
+int 
+string
+float32
+float64
+
+const pi= "ui"
+
+
+	ans,_ := devide(10,0);
+	fmt.Println(ans)
+    if you want to ignore some function output then store it in blank it will allow only write even without ever using 
+
+by default string is "" int is 0 and bool is false and pointer & complex are nil
+%q is used to print string in quotes
+len(array) => size of array
+
+for c++
+ g++ -o a a.cpp
+ ./a
+
+for object code 
+   g++ -c a.cpp -o a.o
+   objdump -d a.o
+
+
+defer makes the eXecution to go at then even thoght it was not in the last 
+if multiple defer statement is their then put each statemnet in a stack and start poping from top in the end
+defer is helpful when we use lot of resources then we might forget to free those after execution of programe 
+so to avoid that we can use defer just after the accessing some resources it will automatically get called at the end 
+
+
+marshling put quotes on field names and to read using dot operator we need to unmarshel it
+
+res, er := http.Get("https://jsonplaceholder.typicode.com/tods/1")
+here res give the error in making get response call : the http.Get was called properly or not
+
+and this 
+
+if res.StatusCode != http.StatusOK {
+		fmt.Println("got error in response:", res.StatusCode)
+		return
+	}
+gives the http error send by server
+
+
+------------------------------------------------------------------------------------
+
+
+data, _ := ioutil.ReadAll(res.Body)
+
+fmt.Println(string(data))
+
+var todo Todo
+er1 := json.NewDecoder(res.Body).Decode(&todo)
+if er1 != nil {
+	fmt.Println("got error in copying :", er1)
+	return
+}
+
+fmt.Println(todo)
+
+
+
+and this is what im getting :
+rajneesh@laptop-451-raapid:~/Desktop/golang/noob/crud$ go run main.go 
+{
+  "userId": 1,
+  "id": 1,
+  "title": "delectus aut autem",
+  "completed": false
+}
+got error in copying : EOF
+
+The issue you're experiencing is due to reading the res.Body twice. Once you read the response body, it's consumed and cannot be read again unless you store it or reset it. Let's break down what's happening and how to fix it.
+
+Problem Explanation
+In your current code:
+
+First Read: You read the entire response body using ioutil.ReadAll(res.Body) and print it.
+Second Read: You attempt to decode the same res.Body into your Todo struct using json.NewDecoder(res.Body).Decode(&todo).
+Issue: After the first read, res.Body is exhausted, so when you try to read it again for decoding, it returns an EOF (End of File) error because there's nothing left to read.
+
+------------------------------------------------------------------------------------------------------------------------------------
